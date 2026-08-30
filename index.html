@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  Rede de seguranca, nao a solucao. Quem faz o trabalho de SEO e o
+  redirecionamento 301 na Cloudflare: o GitHub Pages nao emite redirect no
+  servidor, e so um 301 de verdade transfere o sinal de link — nenhuma pagina
+  HTML consegue fazer isso.
+
+  Esta pagina existe para o caso de o proxy da Cloudflare estar desligado: sem
+  ela, quem digitasse o dominio pelado cairia num 404. O `noindex` e o canonical
+  garantem que ela nunca dispute espaco com /peak/ na busca.
+
+  Quando houver um segundo jogo, isto vira a pagina-hub de verdade e a regra de
+  redirecionamento sai.
+-->
+<title>datamined — game data</title>
+<link rel="canonical" href="https://datamined.joaqu1m.com/peak/">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=/peak/">
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: #101318; color: #e8eaed;
+    font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    text-align: center; padding: 24px;
+  }
+  a { color: #e0b34c; }
+</style>
+</head>
+<body>
+<p>Redirecting to <a href="/peak/">datamined.joaqu1m.com/peak</a>…</p>
+<script>location.replace("/peak/");</script>
+</body>
+</html>
