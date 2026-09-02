@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://datamined.joaqu1m.com/peak/sitemap.xml
