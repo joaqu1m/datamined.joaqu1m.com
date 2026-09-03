@@ -34,7 +34,13 @@
 
   var VIEW2YP = { side: [0, 0], sidefront: [1, 0], front: [2, 0],
                   sidetop: [0, 1], fronttop: [2, 1], top: [2, 2] };
-  function defaultViewFor(i) { return i === 4 ? { yaw: 2, pitch: 0 } : { yaw: 2, pitch: 2 }; }
+  function defaultViewFor(i) {
+    if (i !== 4) return { yaw: 2, pitch: 2 };
+    // O 5o segmento e um dos DOIS finais da montanha, nunca fixo (info.final
+    // vem do mapa do dia). O Citadel se ve melhor de frente; o Kiln, de lado.
+    var info = P.sceneForIndex(P.indexForIso(state.day));
+    return info.final === "Kiln" ? { yaw: 0, pitch: 0 } : { yaw: 2, pitch: 0 };
+  }
 
   var q0 = new URLSearchParams(location.search);
   if (q0.get("b") !== null) state.biome = Math.min(4, Math.max(0, parseInt(q0.get("b"), 10) || 0));

@@ -67,7 +67,10 @@
 
   // nomes internos (enum) -> exibicao localizada (oficial do jogo, via pack)
   P.biomeName = function (enumName) { return (L.biomes && L.biomes[enumName]) || enumName; };
-  P.BIOME_SLUGS = { Volcano: "caldera", Temple: "the-citadel", Swamp: "gloom" };
+  // Kiln e Temple sao os DOIS finais possiveis da montanha. Kiln nao tem badge
+  // propria nas 64 conquistas do jogo, mas e um bioma de lava/forja — reusa o
+  // icone de "caldera" (vulcao em erupcao) em vez do Citadel, que nao combina.
+  P.BIOME_SLUGS = { Volcano: "caldera", Temple: "the-citadel", Kiln: "caldera", Swamp: "gloom" };
   P.biomeSlug = function (enumName) {
     return P.BIOME_SLUGS[enumName] || enumName.toLowerCase().replace(/\s+/g, "-");
   };
@@ -78,12 +81,18 @@
       var n = info.biomes[i] || "?";
       out.push({ id: n, name: P.biomeName(n), variant: info.variants[i] || "" });
     }
-    out.push({ id: "Temple", name: P.biomeName("Temple"), variant: "" });
+    // o 5o segmento NAO esta no MapBaker: o jogo tem dois finais possiveis
+    // (Kiln e Temple/Citadel), so um carregado por mapa. Vem pronto do
+    // build (info.final) — nunca fixar, ou metade dos dias mostra o nome/
+    // cor/icone errados (foi exatamente o bug que isto substitui).
+    var fin = info.final || "Temple";
+    out.push({ id: fin, name: P.biomeName(fin), variant: "" });
     return out;
   };
   P.biomeColor = function (id) {
     var map = { Shore: "--shore", Tropics: "--tropics", Roots: "--roots", Alpine: "--alpine",
-                Mesa: "--mesa", Swamp: "--gloom", Temple: "--citadel", Volcano: "--caldera" };
+                Mesa: "--mesa", Swamp: "--gloom", Temple: "--citadel", Kiln: "--caldera",
+                Volcano: "--caldera" };
     return "var(" + (map[id] || "--accent") + ")";
   };
   P.hasVariant = function (b) {
